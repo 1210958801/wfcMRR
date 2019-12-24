@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.7.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.we</groupId>
+    <artifactId>wfc</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>wfc</name>
+    <packaging>pom</packaging>
+    <description>We Framework Cloud</description>
+
+    <properties>
+        <spring-boot.version>2.1.7.RELEASE</spring-boot.version>
+        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <wfc.version>1.0.0-SNAPSHOT</wfc.version>
+        <github.global.server>github</github.global.server>
+    </properties>
+
+    <!--管理依赖包-->
+    <dependencyManagement>
+        <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!--构建插件-->
+    <build>
+        <plugins>
+            <!-- Compiler 插件, 设定JDK版本 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!--Maven源码插件-->
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--部署插件->部署到本地仓库-->
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mrr
+                    </altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <!--部署插件->部署到本地仓库-->
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.version}</message>
+                    <noJekyll>true</noJekyll>
+                    <outputDirectory>${project.build.directory}/mrr</outputDirectory><!--本地jar地址-->
+                    <branch>refs/heads/master</branch><!--分支-->
+                    <merge>true</merge>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <repositoryName>wfcMRR</repositoryName><!--对应github上创建的仓库名称 name-->
+                    <repositoryOwner>1210958801</repositoryOwner><!--github 仓库所有者-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--<distributionManagement>
+        <repository>
+            <id>MRR</id>
+            <url>file:/Users/liangzy/Repositories/Git/personal/MRR/</url>
+        </repository>
+    </distributionManagement>-->
+
+    <modules>
+        <module>wfc-common</module>
+        <module>wfc-security</module>
+        <module>wfc-gateway</module>
+        <module>wfc-sender</module>
+        <module>wfc-creater</module>
+        <module>wfc-file</module>
+    </modules>
+</project>
