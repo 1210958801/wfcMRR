@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>wfc</artifactId>
+        <groupId>com.we</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.we</groupId>
+    <artifactId>wfc-dps</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>wfc-dps</name>
+    <description>wfc组件依赖管理,目的:将common中部分依赖游离出来供功能业务模块使用</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+		<druid.version>1.1.11</druid.version>
+    </properties>
+
+    <dependencies>
+        <!--wfc公共配置-->
+		<dependency>
+			<groupId>com.we</groupId>
+			<artifactId>wfc-common</artifactId>
+			<version>${wfc.version}</version>
+		</dependency>
+		<!--DB-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+		<!--缓存-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+    </dependencies>
+
+</project>
